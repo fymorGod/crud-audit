@@ -1,0 +1,91 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: auditoria
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+  multipart:
+    max-file-size: 50MB
+    max-request-size: 50MB
+  jackson:
+  time-zone: America/Sao_Paulo
+  serialization:
+    fail-on-empty-beans: false
+  deserialization:
+    fail-on-unknown-properties: true
+  date-format: yyyy-MM-dd HH:mm:ss
+  jpa:
+  hibernate:
+    ddl-auto: none
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.OracleDialect
+      hbm2ddl:
+        auto: none
+      default_schema:
+      format_sql: true
+      open-in-view: false
+      show_sql: true
+      use_sql_comments: false
+  datasource:
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/POTIGUAR
+    username: guest
+    password: guest
+  config:
+    import: ${vault_configimport:}
+  cloud:
+    vault:
+      scheme: ${vault_schema:http}
+      host: ${vault_host:}
+      port: ${vault_port:80}
+      authentication: ${vault_authentication:TOKEN}
+      app-role:
+        role-id: ${vault_app_role_role_id:services}
+        secret-id: ${vault_app_role_secret_id:services}
+      token: ${vault_token:00000000-0000-0000-0000-000000000000}
+      enabled: ${vault_enabled:true}
+      connection-timeout: ${vault_timeout:5000}
+      read-timeout: ${vault_timeout:5000}
+      fail-fast: ${vault_fastfail:true}
+      kv:
+        enabled: ${vault_enabled:true}
+        backend: ${vault_kv_backend:}
+        profile-separator: ${vault_kv_profile_separator:'/'}
+        default-context: ${vault_kv_default_context:}
+  security:
+  user:
+    name: services
+    password: services
+  logging:
+  level:
+    root: INFO
+  file:
+    name: /tmp/app.log
+  springdoc:
+  swagger-ui:
+    operationsSorter: method
+    disable-swagger-default-url: true
+    path: swagger-ui
+  servers:
+    dev: http://localhost:8080
+    stg: http://localhost:8080
+    prd: http://localhost:8080
+  info:
+    company: "Company"
+    product: "API - Crud - Auditoria"
+    title: "CRUD - Tools"
+    description: "Servidor Auditoria"
+    version: "1.0.0"
+
+littlecode:
+  setup:
+    auto-start: false
+    database:
+      auto-apply: false
+      ddl:
+        safe-drops: true
+        auto-start: true
+        auto-save: true
