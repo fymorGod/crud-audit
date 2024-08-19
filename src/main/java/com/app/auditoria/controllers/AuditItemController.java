@@ -30,15 +30,22 @@ public class AuditItemController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Created Successfully!");
     }
-
     @GetMapping("/get")
     public ResponseEntity<List<AuditItem>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
     }
-
     @GetMapping("/find")
     public ResponseEntity<Object> find(@RequestParam(name = "id") int id) {
         Optional<AuditItem> auditItemOptional = service.findById(id);
+        return auditItemOptional.
+                <ResponseEntity<Object>>map(auditItem -> ResponseEntity.status(HttpStatus.OK)
+                .body(auditItem))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Auditoria not found"));
+    }
+    @GetMapping("/find-romaneio")
+    public ResponseEntity<Object> findByRomaneio(@RequestParam(name = "romaneio") String romaneio) {
+        Optional<AuditItem> auditItemOptional = service.findByRomaneio(romaneio);
         return auditItemOptional.
                 <ResponseEntity<Object>>map(auditItem -> ResponseEntity.status(HttpStatus.OK)
                 .body(auditItem))
@@ -56,6 +63,7 @@ public class AuditItemController {
         var auditModel = new AuditItem();
         BeanUtils.copyProperties(updateDto, auditModel);
         auditModel.setId(auditItemOptional.get().getId());
+        service.save(auditModel);
         return ResponseEntity.status(HttpStatus.OK).body("Updated auditoria successfully ");
     }
 }

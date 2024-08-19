@@ -10,12 +10,19 @@ public record AuditItemUpdateDto(
         @NotNull
         int id,
         @NotNull
-        int qtdConferida,
+        String romaneio,
+        @NotNull
+        String codProduto,
+        @NotNull
+        String descricao,
+        String emb,
+        String eanProduto,
+        long qtdItens,
+        long qtdConferida,
         @NotNull
         @Enumerated(EnumType.STRING)
         Conferido conferido,
-        @NotNull
-        int qtdAuditada,
+        long qtdAuditada,
         @NotNull
         @Enumerated(EnumType.STRING)
         Auditado auditado

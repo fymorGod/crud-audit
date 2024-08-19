@@ -26,14 +26,6 @@ public record AuditItemRequestDto(
         int qtdAuditada,
         @NotNull
         @Enumerated(EnumType.STRING)
-        Auditado auditado,
-        @NotNull
-        String cliente,
-        @NotNull
-        String prenota,
-        @NotNull
-        int cpf,
-        @NotNull
-        String emb
+        Auditado auditado
 ) {
 }

@@ -38,33 +38,24 @@ public class AuditItem {
     private String eanProduto;
 
     @Column
-    private int qtdItens;
+    private String emb;
 
-    @Column
-    private int qtdConferida;
+    @Column(name = "QTD_ITENS")
+    private Long qtdItens;
+
+    @Column(name = "QTD_CONFERIDA")
+    private Long qtdConferida;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Conferido conferido;
 
-    @Column
-    private int qtdAuditada;
+    @Column(name = "QTD_AUDITADA")
+    private Long qtdAuditada;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Auditado auditado;
-
-    @Column
-    private String cliente;
-
-    @Column
-    private String prenota;
-
-    @Column
-    private int cpf;
-
-    @Column
-    private String emb;
 
     @CreationTimestamp(source = SourceType.DB)
     @Column(updatable = false, nullable = false)

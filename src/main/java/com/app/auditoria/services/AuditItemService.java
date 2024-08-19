@@ -30,5 +30,4 @@ public class AuditItemService {
     public Optional<AuditItem> findByRomaneio(String romaneio) {
         return auditItemRepository.findByRomaneio(romaneio);
     }
-
 }
