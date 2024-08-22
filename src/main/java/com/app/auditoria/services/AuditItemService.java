@@ -13,7 +13,9 @@ import java.util.Optional;
 public class AuditItemService {
 
     private final AuditItemRepository auditItemRepository;
-
+    public List<AuditItem> getAuditItemsByRomaneio(String romaneio) {
+         return auditItemRepository.findByRomaneio(romaneio);
+    }
     @Transactional
     public void save(AuditItem auditItem) {
         auditItemRepository.save(auditItem);
@@ -27,7 +29,4 @@ public class AuditItemService {
         return auditItemRepository.findById(id);
     }
 
-    public Optional<AuditItem> findByRomaneio(String romaneio) {
-        return auditItemRepository.findByRomaneio(romaneio);
-    }
 }

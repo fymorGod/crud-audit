@@ -12,6 +12,7 @@ import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -28,7 +29,7 @@ public class AuditItem {
     @Column
     private String romaneio;
 
-    @Column
+    @Column(name = "COD_PRODUTO")
     private String codProduto;
 
     @Column
@@ -57,6 +58,16 @@ public class AuditItem {
     @Enumerated(EnumType.STRING)
     private Auditado auditado;
 
+    @OneToOne( fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "COD_PRODUTO", name = "TW501_PRODUTO_IE" , table = "TW501_PRODUTO_EMBALAGEM")
+    private ProdutoEmbalagem produtoEmbalagems;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumns(
+
+    )
+    private ProdEmbCodBarras prodEmbCodBarras;
+
     @CreationTimestamp(source = SourceType.DB)
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -64,4 +75,5 @@ public class AuditItem {
     @UpdateTimestamp(source = SourceType.DB)
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
 }

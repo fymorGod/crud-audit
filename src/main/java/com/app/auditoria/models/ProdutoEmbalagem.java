@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +20,7 @@ public class ProdutoEmbalagem {
     @Id
     @Column(name = "TW501_PRODUTO_IE")
     private long produtoIe;
+
     @Id
     @Column(name = "TW501_EMBALAGEM_IU")
     private long embalagemIu;
@@ -24,4 +28,7 @@ public class ProdutoEmbalagem {
     @Column(name = "TW501_BLOQUEADA")
     private String bloqueada;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "TW502_EMBALAGEM_IE", name = "TW501_EMBALAGEM_IU")
+    private ProdEmbCodBarras prodEmbCodBarras;
 }

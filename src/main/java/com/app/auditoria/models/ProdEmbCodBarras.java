@@ -17,7 +17,13 @@ public class ProdEmbCodBarras {
     @Id
     @Column(name = "TW502_PRODUTO_IE")
     private long produtoIe;
+
     @Id
     @Column(name = "TW502_EMBALAGEM_IE")
     private long embalagemIe;
+
+    @Id
+    @Column(name = "TW502_COD_BARRAS_IU")
+    private String codBarrasIu;
+
 }
