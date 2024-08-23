@@ -1,7 +1,7 @@
 package com.app.auditoria.controllers;
 
+import com.app.auditoria.dtos.AuditItemDetailsDTO;
 import com.app.auditoria.dtos.AuditItemRequestDto;
-import com.app.auditoria.dtos.AuditItemResponse;
 import com.app.auditoria.dtos.AuditItemUpdateDto;
 import com.app.auditoria.models.AuditItem;
 import com.app.auditoria.services.AuditItemService;
@@ -45,23 +45,23 @@ public class AuditItemController {
                         .body("Auditoria not found"));
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/edit-conferencia")
     public ResponseEntity<String> update(@RequestBody @Valid AuditItemUpdateDto updateDto) {
         Optional<AuditItem> auditItemOptional = service.findById(updateDto.id());
         if (auditItemOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Auditoria not found");
         }
 
-        var auditModel = new AuditItem();
-        BeanUtils.copyProperties(updateDto, auditModel);
-        auditModel.setId(auditItemOptional.get().getId());
+        var auditModel = auditItemOptional.get();
+        auditModel.setQtdConferida(updateDto.qtdConferida());
+        auditModel.setConferido(updateDto.conferido());
         service.save(auditModel);
+
         return ResponseEntity.status(HttpStatus.OK).body("Updated auditoria successfully ");
     }
-   @GetMapping("/audit-items")
-   public ResponseEntity<List<AuditItem>> getAuditItems(@RequestParam String romaneio) {
-        List<AuditItem> auditItems = service.getAuditItemsByRomaneio(romaneio);
-        return ResponseEntity.ok(auditItems);
+    @GetMapping("/details")
+    public ResponseEntity<List<AuditItemDetailsDTO>> getAuditItemDetailsByRomaneio(@RequestParam String romaneio) {
+        List<AuditItemDetailsDTO> details = service.getAuditItemDetailsByRomaneio(romaneio);
+        return ResponseEntity.ok(details);
     }
-
 }
