@@ -1,6 +1,7 @@
 package com.app.auditoria.services;
 
 import com.app.auditoria.dtos.AuditItemDetailsDTO;
+import com.app.auditoria.enums.Auditado;
 import com.app.auditoria.models.AuditItem;
 import com.app.auditoria.models.ProdEmbCodBarras;
 import com.app.auditoria.models.ProdutoEmbalagem;
@@ -74,4 +75,15 @@ public class AuditItemService {
         return auditItemRepository.findById(id);
     }
 
+    public List<AuditItem> findByRomaneio(String romaneio) {
+        return auditItemRepository.findByRomaneio(romaneio);
+    }
+
+    public void update(String romaneio) {
+        List<AuditItem> auditItems = auditItemRepository.findByRomaneio(romaneio);
+        auditItems.forEach(auditItem -> {
+            auditItem.setAuditado(Auditado.S);
+            auditItemRepository.save(auditItem);
+        });
+    }
 }
